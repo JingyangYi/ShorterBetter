@@ -1,0 +1,30 @@
+{
+  "amc": {
+    "accuracy": 0.5,
+    "correct_count": 1,
+    "total_count": 2,
+    "verified_count": 1,
+    "timestamp": "2025-05-12 00:20:17"
+  },
+  "aime": {
+    "accuracy": 0.5,
+    "correct_count": 1,
+    "total_count": 2,
+    "verified_count": 2,
+    "timestamp": "2025-05-12 00:20:18"
+  },
+  "olympiad_bench": {
+    "accuracy": 0.0,
+    "correct_count": 0,
+    "total_count": 2,
+    "verified_count": 1,
+    "timestamp": "2025-05-12 00:20:18"
+  },
+  "minerva": {
+    "accuracy": 0.0,
+    "correct_count": 0,
+    "total_count": 2,
+    "verified_count": 2,
+    "timestamp": "2025-05-12 00:20:18"
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "bbh": {
+    "accuracy": 1.0,
+    "avg_output_length": 2519.0,
+    "correct_count": 2,
+    "total_problems": 2
+  },
+  "mmlu": {
+    "accuracy": 1.0,
+    "avg_output_length": 2675.5,
+    "correct_count": 2,
+    "total_problems": 2
+  },
+  "mathqa": {
+    "accuracy": 0.0,
+    "avg_output_length": 8048.5,
+    "correct_count": 0,
+    "total_problems": 2
+  }
+}

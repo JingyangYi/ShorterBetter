@@ -1,0 +1,38 @@
+{
+  "aime": {
+    "accuracy": 0.2,
+    "avg_output_length": 2702.5,
+    "correct_count": 6,
+    "total_problems": 30
+  },
+  "olympiad_bench": {
+    "accuracy": 0.3837037037037037,
+    "avg_output_length": 1813.8103703703703,
+    "correct_count": 259,
+    "total_problems": 675
+  },
+  "math": {
+    "accuracy": 0.684,
+    "avg_output_length": 1071.626,
+    "correct_count": 342,
+    "total_problems": 500
+  },
+  "amc": {
+    "accuracy": 0.5662650602409639,
+    "avg_output_length": 1946.301204819277,
+    "correct_count": 47,
+    "total_problems": 83
+  },
+  "minerva": {
+    "accuracy": 0.2757352941176471,
+    "avg_output_length": 1147.3786764705883,
+    "correct_count": 75,
+    "total_problems": 272
+  },
+  "DeepScaleR_test": {
+    "accuracy": 0.4415,
+    "avg_output_length": 1631.8525,
+    "correct_count": 883,
+    "total_problems": 2000
+  }
+}

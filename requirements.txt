@@ -1,0 +1,7 @@
+# Additional dependencies for ShorterBetter
+# These packages are required for analysis and evaluation scripts
+# but are not included in the standard VERL installation
+
+matplotlib>=3.5.0
+pandas>=1.5.0
+scipy>=1.9.0 

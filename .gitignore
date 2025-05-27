@@ -1,0 +1,69 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# IDEs and editors
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Personal configurations
+*.env.local
+config.local.json
+secrets.json
+
+# Personal script versions
+scripts/*_personal.sh
+scripts/*_local.sh
+
+# Log files
+logs/
+*.log
+slurm_logs/
+
+# Large model files
+*.pt
+*.pth
+*.bin
+checkpoints/
+wandb/
+
+# Dataset files
+*.parquet
+*.json.gz
+*.csv.gz 
+
+# Cache
+.cache/
+
+# training outputs
+scripts/train/outputs/
+scripts/train/1.5B_test.sh
