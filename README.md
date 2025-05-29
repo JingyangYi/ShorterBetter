@@ -120,6 +120,12 @@ python scripts/train/check_acc_len.py
    # For general OOD evaluation
    python scripts/eval/ood/ood_eval.py
    ```
+### Coding Tasks Evaluation
+
+
+```bash
+bash ./code_eval/example_scripts/eval_code_example.sh
+```
 
 ## Results and Outputs
 
