@@ -2,8 +2,9 @@
 
 **Paper**: [ShorterBetter: Guiding Reasoning Models to Find Optimal Inference Length for Efficient Reasoning](https://arxiv.org/abs/2504.21370)
 
-**Model**: [🤗 Hugging Face Model](https://huggingface.co/placeholder-model-name) *(Coming Soon)*
-
+**Model**: 
+SB-1.5B: [🤗 Hugging Face Model](https://huggingface.co/Justin6657/SB_DS1.5B_alpha_2)
+SB-7B: [🤗 Hugging Face Model](https://huggingface.co/JingyangYi/SB_DS7B_alpha_2/tree/main)
 ShorterBetter is a project for training and enhancing language models to generate shorter, better responses using the VERL (Versatile Efficient Reinforcement Learning) framework.
 
 ## Installation
