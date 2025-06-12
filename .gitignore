@@ -21,7 +21,7 @@ var/
 *.egg
 
 # Environments
-.env
+*.env
 .venv
 env/
 venv/
