@@ -140,4 +140,8 @@ To see example outputs from trained models and baseline comparisons:
   - `sample/` - Sample outputs for quick inspection
   - `math/` - Math evaluation outputs
   - `ood/` - Out-of-distribution evaluation outputs
+ 
+## Analysis
+
+See the `README.md` in the   `analysis` folder.
 
