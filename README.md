@@ -1,5 +1,7 @@
 # ShorterBetter
 
+**Website**: https://jiazheng-wang-yes.github.io/ShorterBetter_ProjectPage/
+
 **Paper**: [ShorterBetter: Guiding Reasoning Models to Find Optimal Inference Length for Efficient Reasoning](https://arxiv.org/abs/2504.21370)
 
 **Model**: 
