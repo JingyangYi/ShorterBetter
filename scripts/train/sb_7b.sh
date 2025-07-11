@@ -58,7 +58,7 @@ python3 -m verl.trainer.main_ppo \
     data.val_files=${DATASET_DIR}/aime.parquet \
     data.train_batch_size=128 \
     data.val_batch_size=128 \
-    data.max_prompt_length=200 \
+    data.max_prompt_length=1500 \
     data.max_response_length=5000 \
     actor_rollout_ref.model.path=$MODEL_PATH \
     actor_rollout_ref.actor.optim.lr=1e-6 \
