@@ -3,20 +3,20 @@
 #SBATCH --partition=general          
 #SBATCH --nodes=1                   
 #SBATCH --ntasks=1                   
-#SBATCH --gres=gpu:a100:8               
+#SBATCH --gres=gpu:a100:4              
 #SBATCH --cpus-per-task=16          
 #SBATCH --mem=256G                  
-#SBATCH --time=12:00:00            
-#SBATCH --output=${LOG_DIR}/slurm_logs/verl_grpo/%x_%j.out      
-#SBATCH --error=${LOG_DIR}/slurm_logs/verl_grpo/%x_%j.err  
+#SBATCH --time=00:30:00            
+#SBATCH --output=/net/scratch/jiazhengw/ShorterBetter/logs/slurm_logs/verl_grpo/%x_%j.out      
+#SBATCH --error=/net/scratch/jiazhengw/ShorterBetter/logs/slurm_logs/verl_grpo/%x_%j.err  
 set -x
 
 # Configuration through environment variables
 # Set these variables before running:
-export PROJECT_HOME="/path/to/project"
-export LOG_DIR="/path/to/logs"
-export WANDB_API_KEY="your_wandb_api_key"
-export DATASET_DIR="${PROJECT_HOME}/deepscaler/data"
+export PROJECT_HOME="/net/scratch/jiazhengw/ShorterBetter"
+export LOG_DIR="/net/scratch/jiazhengw/ShorterBetter/logs"
+export WANDB_API_KEY="906a7d5d10486eab174334f7df2f209605dc1260"
+export DATASET_DIR="/net/scratch/jiazhengw/ShorterBetter/deepscaler/data"
 
 # ----------------------------------------
 # To change the reward function hyperparameters, please change the alpha and beta in the following:
@@ -56,7 +56,7 @@ MODEL_PATH=${MODEL_PATH:-"deepseek-ai/DeepSeek-R1-Distill-Qwen-1.5B"}
 python3 -m verl.trainer.main_ppo \
     algorithm.adv_estimator=grpo \
     data.train_files=${DATASET_DIR}/train_filtered.parquet \
-    data.val_files=${DATASET_DIR}/aime.parquet \
+    data.val_files=${DATASET_DIR}/train_filtered.parquet \
     data.train_batch_size=128 \
     data.val_batch_size=128 \
     data.max_prompt_length=1500 \
@@ -75,12 +75,12 @@ python3 -m verl.trainer.main_ppo \
     actor_rollout_ref.actor.fsdp_config.param_offload=False \
     +actor_rollout_ref.actor.fsdp_config.grad_offload=False \
     actor_rollout_ref.actor.fsdp_config.optimizer_offload=False \
-    actor_rollout_ref.rollout.tensor_model_parallel_size=2 \
+    actor_rollout_ref.rollout.tensor_model_parallel_size=8 \
     actor_rollout_ref.rollout.name=vllm \
     actor_rollout_ref.rollout.temperature=0.9 \
     +actor_rollout_ref.rollout.val_temperature=0.9 \
     actor_rollout_ref.rollout.gpu_memory_utilization=0.8 \
-    actor_rollout_ref.rollout.n=8 \
+    actor_rollout_ref.rollout.n=12 \
     +actor_rollout_ref.rollout.n_val=4 \
     actor_rollout_ref.ref.fsdp_config.param_offload=True \
     algorithm.kl_ctrl.kl_coef=0.001 \
@@ -89,12 +89,12 @@ python3 -m verl.trainer.main_ppo \
     trainer.project_name='ShorterBetter' \
     trainer.experiment_name='sb_1.5B' \
     +trainer.val_before_train=False \
-    trainer.n_gpus_per_node=8 \
+    trainer.n_gpus_per_node=4 \
     trainer.nnodes=1 \
     trainer.save_freq=100 \
     ++trainer.test_freq=-1 \
     trainer.default_hdfs_dir=null \
-    trainer.total_epochs=3 "${@:1}" 
+    trainer.total_epochs=1 "${@:1}" 
 
 # Notes on the training cofig:
 

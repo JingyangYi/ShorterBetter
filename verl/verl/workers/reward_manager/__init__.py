@@ -14,3 +14,6 @@
 
 from .naive import NaiveRewardManager
 from .prime import PrimeRewardManager
+from .naive_baseline import SigmoidRewardManager
+from .naive_abaltion import AblationRewardManager
+from .naive_configurable import ConfigurableRewardManager

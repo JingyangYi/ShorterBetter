@@ -157,6 +157,8 @@ reward_model:
   micro_batch_size_per_gpu: null
   use_dynamic_bsz: ${critic.use_dynamic_bsz}
   max_length: null
+  reward_manager: naive
+  alpha: 1.0  # alpha parameter for sigmoid reward manager
 
 custom_reward_function:
   path: null

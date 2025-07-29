@@ -4,6 +4,7 @@ import matplotlib.pyplot as plt
 import pandas as pd
 from typing import List, Tuple, Dict, Optional
 import os
+import argparse
 from scipy.stats import linregress
 
 def analyze_output_log(log_file_path: str, prompts_per_step: int = 64, responses_per_prompt: int = 8, max_steps: Optional[int] = None) -> None:
@@ -172,6 +173,17 @@ def analyze_output_log(log_file_path: str, prompts_per_step: int = 64, responses
 
 # Example usage
 if __name__ == "__main__":
-    log_file_path = "/path/to/output.log"
-    analyze_output_log(log_file_path, prompts_per_step=128, responses_per_prompt=8, max_steps=500)
-    # prompt_per_step = Your batch size, response_per_prompt = number of rollouts
+    parser = argparse.ArgumentParser(description='Analyze RL training output log to calculate average accuracy and output lengths per step.')
+    parser.add_argument('log_file_path', type=str, help='Path to the output.log file')
+    parser.add_argument('--prompts_per_step', type=int, default=64, help='Number of prompts per step (default: 64)')
+    parser.add_argument('--responses_per_prompt', type=int, default=8, help='Number of responses per prompt (default: 8)')
+    parser.add_argument('--max_steps', type=int, default=None, help='Maximum number of steps to plot (default: None, plots all steps)')
+    
+    args = parser.parse_args()
+    
+    analyze_output_log(
+        args.log_file_path, 
+        prompts_per_step=args.prompts_per_step, 
+        responses_per_prompt=args.responses_per_prompt, 
+        max_steps=args.max_steps
+    )

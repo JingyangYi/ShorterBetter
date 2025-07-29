@@ -148,18 +148,47 @@ class TaskRunner:
         elif reward_manager_name == 'prime':
             from verl.workers.reward_manager import PrimeRewardManager
             reward_manager_cls = PrimeRewardManager
+        elif reward_manager_name == 'sigmoid':
+            from verl.workers.reward_manager import SigmoidRewardManager
+            reward_manager_cls = SigmoidRewardManager
+        elif reward_manager_name == 'ablation':
+            from verl.workers.reward_manager import AblationRewardManager
+            reward_manager_cls = AblationRewardManager
+        elif reward_manager_name == 'configurable':
+            from verl.workers.reward_manager import ConfigurableRewardManager
+            reward_manager_cls = ConfigurableRewardManager
         else:
             raise NotImplementedError
 
         train_batch_size = config.data.train_batch_size
         num_generation = config.actor_rollout_ref.rollout.n
         compute_score = get_custom_reward_fn(config)  # should be None
-        reward_fn = reward_manager_cls(tokenizer=tokenizer, num_examine=0, 
-                                       train_batch_size=train_batch_size, num_generation=num_generation, compute_score=compute_score)
-
-        # Note that we always use function-based RM for validation
-        val_reward_fn = reward_manager_cls(tokenizer=tokenizer, num_examine=1, 
-                                        train_batch_size=train_batch_size, num_generation=num_generation, compute_score=compute_score)
+        
+        # Get alpha and beta parameters for reward managers that support them
+        alpha = config.reward_model.get("alpha", 1.0)
+        beta = config.reward_model.get("beta", 0.001)
+        
+        if reward_manager_name == 'sigmoid':
+            reward_fn = reward_manager_cls(tokenizer=tokenizer, num_examine=0, 
+                                           train_batch_size=train_batch_size, num_generation=num_generation, 
+                                           compute_score=compute_score, alpha=alpha)
+            val_reward_fn = reward_manager_cls(tokenizer=tokenizer, num_examine=1, 
+                                            train_batch_size=train_batch_size, num_generation=num_generation, 
+                                            compute_score=compute_score, alpha=alpha)
+        elif reward_manager_name == 'configurable':
+            reward_fn = reward_manager_cls(tokenizer=tokenizer, num_examine=0, 
+                                           train_batch_size=train_batch_size, num_generation=num_generation, 
+                                           compute_score=compute_score, alpha=alpha, beta=beta)
+            val_reward_fn = reward_manager_cls(tokenizer=tokenizer, num_examine=1, 
+                                            train_batch_size=train_batch_size, num_generation=num_generation, 
+                                            compute_score=compute_score, alpha=alpha, beta=beta)
+        else:
+            reward_fn = reward_manager_cls(tokenizer=tokenizer, num_examine=0, 
+                                           train_batch_size=train_batch_size, num_generation=num_generation, 
+                                           compute_score=compute_score)
+            val_reward_fn = reward_manager_cls(tokenizer=tokenizer, num_examine=1, 
+                                            train_batch_size=train_batch_size, num_generation=num_generation, 
+                                            compute_score=compute_score)
 
         resource_pool_manager = ResourcePoolManager(resource_pool_spec=resource_pool_spec, mapping=mapping)
 

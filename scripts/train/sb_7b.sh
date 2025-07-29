@@ -13,10 +13,10 @@ set -x
 
 # Configuration through environment variables
 # Set these variables before running:
-export PROJECT_HOME="/path/to/project"
-export LOG_DIR="/path/to/logs"
-export WANDB_API_KEY="your_wandb_api_key"
-export DATASET_DIR="${PROJECT_HOME}/deepscaler/data"
+export PROJECT_HOME="/net/scratch/jiazhengw/ShorterBetter"
+export LOG_DIR="/net/scratch/jiazhengw/ShorterBetter/logs"
+export WANDB_API_KEY="906a7d5d10486eab174334f7df2f209605dc1260"
+export DATASET_DIR="/net/scratch/jiazhengw/ShorterBetter/deepscaler/data"
 
 # ----------------------------------------
 # To change the reward function hyperparameters, please change the alpha and beta in the following:
@@ -34,6 +34,7 @@ export DATASET_DIR="${PROJECT_HOME}/deepscaler/data"
 # vLLM without XFORMERS will results in CUDA errors.
 export PYTHONPATH="${PROJECT_HOME}:$PYTHONPATH"
 export VLLM_ATTENTION_BACKEND=XFORMERS
+# ----------------------------------------
 
 # Parse command line arguments
 while [[ $# -gt 0 ]]; do
@@ -55,10 +56,10 @@ MODEL_PATH=${MODEL_PATH:-"deepseek-ai/DeepSeek-R1-Distill-Qwen-7B"}
 python3 -m verl.trainer.main_ppo \
     algorithm.adv_estimator=grpo \
     data.train_files=${DATASET_DIR}/train_filtered.parquet \
-    data.val_files=${DATASET_DIR}/aime.parquet \
+    data.val_files=${DATASET_DIR}/train_filtered.parquet \
     data.train_batch_size=128 \
     data.val_batch_size=128 \
-    data.max_prompt_length=200 \
+    data.max_prompt_length=1500 \
     data.max_response_length=5000 \
     actor_rollout_ref.model.path=$MODEL_PATH \
     actor_rollout_ref.actor.optim.lr=1e-6 \
@@ -74,7 +75,7 @@ python3 -m verl.trainer.main_ppo \
     actor_rollout_ref.actor.fsdp_config.param_offload=True \
     +actor_rollout_ref.actor.fsdp_config.grad_offload=True \
     actor_rollout_ref.actor.fsdp_config.optimizer_offload=True \
-    actor_rollout_ref.rollout.tensor_model_parallel_size=4 \
+    actor_rollout_ref.rollout.tensor_model_parallel_size=8 \
     actor_rollout_ref.rollout.name=vllm \
     actor_rollout_ref.rollout.temperature=0.9 \
     +actor_rollout_ref.rollout.val_temperature=0.9 \
@@ -88,7 +89,7 @@ python3 -m verl.trainer.main_ppo \
     trainer.project_name='ShorterBetter' \
     trainer.experiment_name='sb_7b' \
     +trainer.val_before_train=False \
-    trainer.n_gpus_per_node=8 \
+    trainer.n_gpus_per_node=4 \
     trainer.nnodes=1 \
     trainer.save_freq=100 \
     ++trainer.test_freq=-1 \
