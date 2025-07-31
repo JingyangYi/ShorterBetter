@@ -148,17 +148,20 @@ def analyze_output_log(log_file_path: str, prompts_per_step: int = 64, responses
     
     plt.tight_layout()
     
+    # Get the base name of the input log file (without extension)
+    log_base_name = os.path.splitext(os.path.basename(log_file_path))[0]
+    
     # Save the plot
-    plot_name = f"training_metrics_plot_{len(df)}steps.png"
+    plot_name = f"{log_base_name}_training_metrics_plot_{len(df)}steps.pdf"
     plot_path = os.path.join(os.path.dirname(log_file_path), plot_name)
-    plt.savefig(plot_path)
+    plt.savefig(plot_path, format='pdf', bbox_inches='tight')
     print(f"Plot saved to {plot_path}")
     
     # Display the plot
     plt.show()
     
     # Save the processed data
-    csv_name = f"training_metrics_{len(df)}steps.csv"
+    csv_name = f"{log_base_name}_training_metrics_{len(df)}steps.csv"
     csv_path = os.path.join(os.path.dirname(log_file_path), csv_name)
     df.to_csv(csv_path, index=False)
     print(f"Metrics data saved to {csv_path}")
@@ -175,9 +178,9 @@ def analyze_output_log(log_file_path: str, prompts_per_step: int = 64, responses
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='Analyze RL training output log to calculate average accuracy and output lengths per step.')
     parser.add_argument('log_file_path', type=str, help='Path to the output.log file')
-    parser.add_argument('--prompts_per_step', type=int, default=64, help='Number of prompts per step (default: 64)')
-    parser.add_argument('--responses_per_prompt', type=int, default=8, help='Number of responses per prompt (default: 8)')
-    parser.add_argument('--max_steps', type=int, default=None, help='Maximum number of steps to plot (default: None, plots all steps)')
+    parser.add_argument('--prompts_per_step', type=int, default=128, help='Number of prompts per step (default: 128)')
+    parser.add_argument('--responses_per_prompt', type=int, default=4, help='Number of responses per prompt (default: 4)')
+    parser.add_argument('--max_steps', type=int, default=200, help='Maximum number of steps to plot (default: 200)')
     
     args = parser.parse_args()
     

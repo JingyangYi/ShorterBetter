@@ -1,21 +1,11 @@
 #!/bin/bash
-#SBATCH --job-name=llm_verify
-#SBATCH --partition=general          
-#SBATCH --nodes=1                   
-#SBATCH --ntasks=1                   
-#SBATCH --gres=gpu:1               
-#SBATCH --cpus-per-task=16          
-#SBATCH --mem=128G                  
-#SBATCH --time=12:00:00            
-#SBATCH --output=/path/to/logs/%x_%j.out      
-#SBATCH --error=/path/to/logs/%x_%j.err  
+# Usage: bash verifier.sh <data_dir>
 
-export HF_HOME=/path/to/.cache/huggingface
-data_dir="/ShorterBetter/eval_data/outputs/math/DeepSeek-R1-Distill-Qwen-1.5B"
+DATA_DIR=$1
 
+export HF_HOME=/net/scratch/jiazhengw/huggingface
 
-# By default, the output will be save in OUTPUT_DIR = "/ShorterBetter/eval_data/outputs/math"
-python verifier.py \
-    --dataset_dir $data_dir \
-    --output_dir $data_dir/verified \
+python /net/scratch/jiazhengw/ShorterBetter/scripts/eval/math/verifier.py \
+    --dataset_dir "$DATA_DIR" \
+    --output_dir "$DATA_DIR/verified" \
     --batch_size 16

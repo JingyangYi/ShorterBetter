@@ -48,6 +48,8 @@ scripts/*_local.sh
 logs/
 *.log
 slurm_logs/
+*.out
+*.err
 
 # Large model files
 *.pt
@@ -66,3 +68,6 @@ wandb/
 # training outputs
 scripts/train/outputs/
 scripts/train/1.5B_test.sh
+
+# evaluation outputs
+eval_data/outputs

@@ -10,8 +10,8 @@ import time
 from transformers import AutoTokenizer
 from pathlib import Path
 # Paths
-DATA_DIR = "/ShorterBetter/eval_data/math"
-OUTPUT_DIR = "ShorterBetter/eval_data/outputs/math"
+DATA_DIR = "/net/scratch/jiazhengw/ShorterBetter/eval_data/math"
+OUTPUT_DIR = "/net/scratch/jiazhengw/ShorterBetter/eval_data/outputs/math"
 
 # Load model and tokenizer function following generation.py approach
 def get_model(model_path):
@@ -61,7 +61,7 @@ def get_model(model_path):
             )
             print(f"Model loaded from HF Hub with tensor parallelism across {torch.cuda.device_count()} GPUs")
             
-            # Get tokenizer from HF Hub
+            # Get tokenizer from HF Hub 
             tokenizer = AutoTokenizer.from_pretrained(model_path, trust_remote_code=True)
             
             return llm, tokenizer
@@ -321,7 +321,7 @@ def main():
         print(f"\n--- Evaluating {task_file} ---")
         
         # Load dataset
-        dataset, dataset_path = load_dataset(task_file, max_datapoints=2)
+        dataset, dataset_path = load_dataset(task_file, max_datapoints=1000)
         task_name = os.path.basename(task_file).split('.')[0]
         
         # Run evaluation with batched inference
